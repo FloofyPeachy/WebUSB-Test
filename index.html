@@ -37,7 +37,14 @@
 
 
  document.querySelector('#request-aoa').addEventListener('click', function(event) {
-	 navigator.usb.requestDevice()
+	 navigator.usb.requestDevice({filters: [
+   	      {vendorId: 0x1004, productId: 0x633E},
+   	      {vendorId: 0x1004, productId: 0x2D01},
+   	      {vendorId: 0x1004, productId: 0x2D02},
+   	      {vendorId: 0x1004, productId: 0x2D03},
+   	      {vendorId: 0x1004, productId: 0x2D04},
+   	      {vendorId: 0x1004, productId: 0x2D05}
+         ]})
 	 .then(usbDevice => {
 		  console.log("Product name: " + usbDevice.productName);
 		  setupPipes(usbDevice);

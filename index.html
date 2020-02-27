@@ -16,7 +16,7 @@
 		<button id="send" style="margin: 2px">Send</button>
 	</div>
 	<textarea readonly id="chat-area" rows="16" cols="28" style="resize: none;"></textarea><br> 
-	<textarea id="log" rows="4" cols="50"></textarea>
+	<textarea id="log" rows="4" cols="50">Bruh</textarea>
 	<audio id="player" controls style="display: none;"></audio>
 </div>	
 
@@ -108,7 +108,7 @@ function str2ab(str) {
   return buf;
 }
 
-	function addText(event) {
+function addText(event) {
     var targ = event.target || event.srcElement;
     document.getElementById("log").value += targ.textContent || targ.innerText;
 }

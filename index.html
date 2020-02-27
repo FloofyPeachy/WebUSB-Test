@@ -67,7 +67,7 @@
 	 });
  });
 
- function connect(usbDevice) {
+ function connect(f) {
  	usbDevice.open().then(function(){
  		console.log("connected");
  		checkProtocol(usbDevice);

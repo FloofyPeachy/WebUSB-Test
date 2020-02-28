@@ -16,7 +16,6 @@
 		<button id="send" style="margin: 2px">Send</button>
 	</div>
 	<textarea readonly id="chat-area" rows="16" cols="28" style="resize: none;"></textarea><br> 
-	
 	<audio id="player" controls style="display: none;"></audio>
 </div>	
 
@@ -38,7 +37,9 @@
 
 
  document.querySelector('#request-aoa').addEventListener('click', function(event) {
-	 navigator.usb.requestDevice({filters: []})
+	 navigator.usb.requestDevice({filters: [
+		  
+	 	]})
 	 .then(usbDevice => {
 		  console.log("Product name: " + usbDevice.productName);
 		  setupPipes(usbDevice);
@@ -60,17 +61,19 @@
 	 });
  });
 
- function connect(f) {
+ function connect(usbDevice) {
  	usbDevice.open().then(function(){
  		console.log("connected");
  		checkProtocol(usbDevice);
  	}).catch(e => {
-		addText("Error:" + e)
+		console.log("Can't connect " + e);
 	});
  }
 
 function checkProtocol(usbDevice) {
+  console.log("Checking..")
 	if (usbDevice.configuration === null)
+  console.log("Got here..")
     	usbDevice.selectConfiguration(1).then(function(){
 	    usbDevice.controlTransferIn(({
 	 		requestType: 'vendor',
@@ -101,11 +104,6 @@ function str2ab(str) {
   return buf;
 }
 
-function addText(event) {
-    var targ = event.target || event.srcElement;
-    document.getElementById("log").value += targ.textContent || targ.innerText;
-}
-	
 async function setCredentials(usbDevice) {
   let credetials = ["once2go", "WebUsbChat", "desCripTion", "1.0", "uRi", "seRialNuMbeR"];
   for (var i = 0; i < credetials.length; i++) {
@@ -153,6 +151,7 @@ function switchToAoA(usbDevice){
     		index: 0
  		}), new ArrayBuffer(0)).then(response => {  
  			if (response.status == "ok") {
+         console.log("AoA activated!")
 				usbDevice.close();
  			}
  		}).catch(e => {
@@ -194,7 +193,7 @@ async function setupPipes(usbDevice) {
 
  document.querySelector("#send").addEventListener('click', function(event) {
  	  var text =  document.querySelector("#text-inpt").value;
-   	  uDevice.transferOut(1, str2ab(text)).then(response => {  
+   	  uDevice.transferOut(2, str2ab(text)).then(response => {  
  		   console.log(response);
  		   document.querySelector("#text-inpt").value = "";
  		   var chatText = document.querySelector("#chat-area").value;

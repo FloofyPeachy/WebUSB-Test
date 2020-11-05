@@ -51,7 +51,7 @@
   });
 
  document.querySelector("#request-any").addEventListener('click', function(event) {
-   	 navigator.usb.requestDevice({filters: []})
+   	 navigator.usb.requestDevice({filters: [{vendorId: 0x1004, productId: 0x61f9}]})
 	.then(usbDevice => {
 	      console.log("Product name: " + usbDevice.productName);
 		  connect(usbDevice);

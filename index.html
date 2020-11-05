@@ -38,7 +38,7 @@
 
  document.querySelector('#request-aoa').addEventListener('click', function(event) {
 	 navigator.usb.requestDevice({filters: [
-		   {vendorId: 0x1004, productId: 0x61f9}
+{vendorId: 0x18d1, productId: 0x2d01}
 	 	]})
 	 .then(usbDevice => {
 		  console.log("Product name: " + usbDevice.productName);
@@ -51,7 +51,7 @@
   });
 
  document.querySelector("#request-any").addEventListener('click', function(event) {
-   	 navigator.usb.requestDevice({filters: [{vendorId: 0x18d1, productId: 0x2d01}]})
+   	 navigator.usb.requestDevice({filters: [{vendorId: 0x1004, productId: 0x61f9}]})
 	.then(usbDevice => {
 	      console.log("Product name: " + usbDevice.productName);
 		  connect(usbDevice);
